@@ -21,4 +21,12 @@ function getPolylineCoordinates() {
     })
 }
 
+export const getPoisFromMarker = (coordinates) => {
+    // add api key in here too
+    return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.latitude},${coordinates.longitude}&radius=1000&type=point_of_interest&key=`)
+    .then(({data}) => {
+        return data.results
+    })
+}
+
 export default getPolylineCoordinates

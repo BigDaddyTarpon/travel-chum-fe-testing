@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import getPolylineCoordinates, { getPoisFromMarker } from "../utils/utils";
-export default function App() {
+
+export default function Map() {
   const [polylineCoordinates, setPolylineCoordinates] = useState([]);
   const [poiMarkers, setPoiMarkers] = useState([]);
   useEffect(() => {
@@ -98,7 +99,7 @@ export default function App() {
           ))}
         </MapView>
       )}
-      <StatusBar style="auto" />
+    
     </View>
   );
 }
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    width: "70%",
-    height: "70%",
+    width: "85%",
+    height: "85%",
   },
 });

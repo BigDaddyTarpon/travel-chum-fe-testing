@@ -2,9 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
-import getPolylineCoordinates, { getPoisFromMarker } from "./utils/utils";
-
-
+import getPolylineCoordinates, { getPoisFromMarker } from "../utils/utils";
 export default function App() {
   const [polylineCoordinates, setPolylineCoordinates] = useState([]);
   const [poiMarkers, setPoiMarkers] = useState([]);

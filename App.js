@@ -27,7 +27,7 @@ import Map from "./components/map";
 
 const Tab = createMaterialTopTabNavigator();
 
-function HomeScreen() {
+function HomeScreen({isThemeDark}) {
   return (
     <View
       style={{
@@ -36,7 +36,7 @@ function HomeScreen() {
         alignItems: "center",
       }}
     >
-      <Text>Local Home in App!</Text>
+      <Text style={{ color: isThemeDark ? "white" : "black" }}>Local Home in App!</Text>
     </View>
   );
 }
@@ -87,13 +87,15 @@ export default function App() {
           <Appbar
             style={{ marginTop: Constants.statusBarHeight }}
           >
-            <Appbar.Content title="Title" />
-            <Appbar.Action icon="magnify" onPress={() => {}} />
+            <Appbar.Content title="Travel Chum" />
+
+            <Appbar.Action icon="lightbulb-on-outline" />
             <Switch
               color={"red"}
               value={isThemeDark}
               onValueChange={toggleTheme}
             />
+            <Appbar.Action icon="lightbulb-off-outline" />
           </Appbar>
         </>
         <NavigationContainer theme={theme}>

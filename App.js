@@ -1,19 +1,23 @@
-import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import Constants from 'expo-constants'
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import { PaperProvider } from 'react-native-paper';
+import {MyHeaderComponent} from './components/header';
+import { Appbar, Switch} from 'react-native-paper';
 import OptionsForm from "./components/options-form";
 import Home from "./components/home";
 import User from "./components/user";
 import Map from "./components/map";
 
+
+
 const Tab = createMaterialTopTabNavigator();
 
 function HomeScreen() {
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         justifyContent: "center",
@@ -21,7 +25,7 @@ function HomeScreen() {
       }}
     >
       <Text>Local Home in App!</Text>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -35,12 +39,24 @@ function SettingsScreen() {
   );
 }
 
-{/* tried to use: <StatusBar style="auto" />  but needed 'constraints' */}
+{/* tried to use: <StatusBar style="auto" />  but needed 'Constants' */}
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator style={{ marginTop: Constants.statusBarHeight }}>
+    <PaperProvider>
+    <>
+    <Appbar style={{ marginTop: Constants.statusBarHeight }}>
+       <Appbar.Content title="Title"  />
+        <Appbar.Action icon="magnify" onPress={() => {}} />
+        <Switch
+          color={'red'}
+          value={'0'}
+          onValueChange={'0'}
+        />
+    </Appbar>
+    </>
+    <NavigationContainer >
+      <Tab.Navigator >
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Local Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
@@ -49,8 +65,26 @@ export default function App() {
         <Tab.Screen name="Map" component={Map} />
       </Tab.Navigator>
     </NavigationContainer>
+    </PaperProvider>
   );
 }
+
+// style={{ marginTop: Constants.statusBarHeight }}
+
+{/* no error, but no display;
+ <Tab.Navigator screenOptions={{
+    header: () => (
+      <Appbar.Header>
+        <Appbar.Content title="title" />
+      </Appbar.Header>
+    )
+  }}></Tab.Navigator> */}
+
+//   I think the code is below, but also I think the tabs ARE the header, so cant see additional header from top tab nav, need to add above; 
+//   headerShown="true"
+//   screenOptions={{
+// header:()=>(<MyHeaderComponent />)
+// }}
 
 const styles = StyleSheet.create({
   container: {

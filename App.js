@@ -1,6 +1,6 @@
 import React from 'react';
 import { PreferencesContext } from "./PreferencesContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import Constants from "expo-constants";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -100,10 +100,10 @@ export default function App() {
         </>
         <NavigationContainer theme={theme}>
           <Tab.Navigator>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Local Home" component={HomeScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
-            <Tab.Screen name="Options Form" component={OptionsForm} />
+            <Tab.Screen name="Home " component={Home} />
+            <Tab.Screen name="Test Page" component={HomeScreen} />
+            <Tab.Screen name="Test Pg2" component={SettingsScreen} />
+            <Tab.Screen name="Plan a Trip" component={OptionsForm} />
             <Tab.Screen name="User" component={User} />
             <Tab.Screen name="Map" component={Map} />
           </Tab.Navigator>

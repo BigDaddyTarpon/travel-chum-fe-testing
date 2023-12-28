@@ -1,7 +1,7 @@
 import React from 'react';
 import { PreferencesContext } from "./PreferencesContext";
 import { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
 import Constants from "expo-constants";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
@@ -37,6 +37,7 @@ function HomeScreen({isThemeDark}) {
       }}
     >
       <Text style={{ color: isThemeDark ? "white" : "black" }}>Local Home in App!</Text>
+      <Text style={{color: 'white'}} >Hi from Local Home page.</Text>
     </View>
   );
 }
@@ -45,6 +46,10 @@ function SettingsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Local Settings in App!</Text>
+      <Text style={{color: 'white'}} >Hi from local page.</Text>
+      
+            <Image style={styles.Image} source={require('./assets/travel-chum-logo.png')} />
+            
     </View>
   );
 }
@@ -88,6 +93,7 @@ export default function App() {
             style={{ marginTop: Constants.statusBarHeight }}
           >
             <Appbar.Content title="Travel Chum" />
+            <Image style={styles.Image} source={require('./assets/travel-chum-logo.png')} />
 
             <Appbar.Action icon="lightbulb-on-outline" />
             <Switch
@@ -143,4 +149,9 @@ const styles = StyleSheet.create({
     width: "70%",
     height: "70%",
   },
-});
+  Image: {
+    height: "100%",
+    width: "15%",
+    resizeMode: 'contain'},
+},
+);

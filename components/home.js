@@ -8,6 +8,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Text>Hello from Home page</Text>
+      <Text style={{color: 'white'}} >Hi from Home page.</Text>
     </View>
   );
 }

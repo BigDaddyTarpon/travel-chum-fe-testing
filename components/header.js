@@ -14,3 +14,4 @@ export default function MyHeaderComponent () {
     </Appbar>
 )};
 
+// NOT USED header handled locally in App

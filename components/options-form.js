@@ -5,13 +5,33 @@ import {
   Text,
   View,
   SafeAreaView,
+  Button,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { TextInput, List, SegmentedButtons } from "react-native-paper";
 import { RadioButton } from "react-native-paper";
+import { useForm, Controller } from "react-hook-form";
 
 export default function OptionsForm() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      origin: "",
+      destination: "",
+    },
+  });
+  function onSubmit (data){
+    // console.log(data, error);
+Alert.alert(`data is ${data}`)
+// Alert.alert(`error is ${error}`)
+  } 
+  //data should be origin, destination (and number of stops if added)
+
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [checked, setChecked] = useState("car");
@@ -23,55 +43,102 @@ export default function OptionsForm() {
   const [group4, setGroup4] = useState([]);
 
   const handlePress = () => setExpanded(!expanded);
+
   return (
     <>
+    <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
       <TextInput
         label="please enter a postcode for the start"
         placeholder="type here"
-        value={origin}
-        onChangeText={(origin) => setOrigin(origin)}
+        onBlur={onBlur}
+        onChangeText={onChange}
+        value={value}
       />
+      )}
+      name="origin"
+    />
+    {errors.origin && <Text style={{color: 'black'}}>An origin is required. <Text style={{color: 'white'}} >An origin is required.</Text></Text>}
+
+
+    <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
       <TextInput
         label="please enter a postcode for the destination"
         placeholder="type here"
-        value={destination}
-        onChangeText={(destination) => setDestination(destination)}
+        onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
       />
-      <View >
-      <List.Accordion 
-        title="<-Selected. Open/close options here."
-        left={(props) => <List.Icon {...props} icon={checked} />}
-        expanded={expanded}
-        onPress={handlePress}
-      >
-        <List.Item
-          title="car"
-          onPress={() => setChecked("car")}
-          left={(props) => <List.Icon {...props} icon="car" />}
-        />
-        <List.Item
-          title="train"
-          onPress={() => setChecked("train")}
-          left={(props) => <List.Icon {...props} icon="train" />}
-        />
-        <List.Item
-          title="bus/coach"
-          onPress={() => setChecked("bus")}
-          left={(props) => <List.Icon {...props} icon="bus" />}
-        />
-        <List.Item
-          title="bicycle"
-          onPress={() => setChecked("bicycle")}
-          left={(props) => <List.Icon {...props} icon="bicycle" />}
-        />
-        <List.Item
-          title="walk"
-          onPress={() => setChecked("walk")}
-          left={(props) => <List.Icon {...props} icon="walk" />}
-        />
-      </List.Accordion>
-      </View >
-      
+      )}
+      name="destination"
+    />
+    {errors.destination && <Text style={{color: 'black'}}>A destination is required. <Text style={{color: 'white'}} >A destination is required.</Text></Text>}
+
+
+    <Controller
+        control={control}
+        rules={{ 
+          pattern: {value: /^[0-9]*[1-9][0-9]*$/},
+          required: true
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+      <TextInput
+        label="please enter number of stops."
+        placeholder="type a number here"
+        onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+      />
+      )}
+      name="stops"
+    />
+    {errors.stops && <Text style={{color: 'black'}}>A number is required. <Text style={{color: 'white'}} >A number is required.</Text></Text>}
+
+
+      <View>
+        <List.Accordion
+          title="<-Selected. Open/close options here."
+          left={(props) => <List.Icon {...props} icon={checked} />}
+          expanded={expanded}
+          onPress={handlePress}
+        >
+          <List.Item
+            title="car"
+            onPress={() => setChecked("car")}
+            left={(props) => <List.Icon {...props} icon="car" />}
+          />
+          <List.Item
+            title="train"
+            onPress={() => setChecked("train")}
+            left={(props) => <List.Icon {...props} icon="train" />}
+          />
+          <List.Item
+            title="bus/coach"
+            onPress={() => setChecked("bus")}
+            left={(props) => <List.Icon {...props} icon="bus" />}
+          />
+          <List.Item
+            title="bicycle"
+            onPress={() => setChecked("bicycle")}
+            left={(props) => <List.Icon {...props} icon="bicycle" />}
+          />
+          <List.Item
+            title="walk"
+            onPress={() => setChecked("walk")}
+            left={(props) => <List.Icon {...props} icon="walk" />}
+          />
+        </List.Accordion>
+      </View>
+
       <SafeAreaView style={styles.container}>
         <SegmentedButtons
           value={valueAccomodation}
@@ -172,6 +239,7 @@ export default function OptionsForm() {
           ]}
         />
       </SafeAreaView>
+      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </>
   );
 }
@@ -230,5 +298,6 @@ const styles = StyleSheet.create({
   
   */
 }
+
 
 

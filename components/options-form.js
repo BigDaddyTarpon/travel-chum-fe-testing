@@ -26,11 +26,17 @@ export default function OptionsForm() {
     },
   });
   function onSubmit (data){
-    // console.log(data, error);
-Alert.alert(`data is ${data}`)
-// Alert.alert(`error is ${error}`)
+   // console.log('data is', data, 'JSON.stringify(data) gives;', JSON.stringify(data))
+    console.log('data is', data)
+    console.log('mode of transport;', checked)
+    console.log('accomodation;', valueAccomodation)
+    console.log(group1)
+    console.log(group2)
+    console.log(group3)
+    console.log(group4)
+   // console.log('error is', error? error : null)
   } 
-  //data should be origin, destination (and number of stops if added)
+  //data should be origin, destination and number of stops
 
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");

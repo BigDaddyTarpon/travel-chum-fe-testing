@@ -5,12 +5,12 @@ import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
 import Constants from "expo-constants";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
-  DefaultTheme,
+  DefaultTheme as NavigationDefaultTheme,
   NavigationContainer,
-  DarkTheme,
+  DarkTheme as NavigationDarkTheme,
 useTheme
 } from "@react-navigation/native";
-import { PaperProvider } from "react-native-paper";
+import { PaperProvider, adaptNavigationTheme} from "react-native-paper";
 import { MyHeaderComponent } from "./components/header";
 import {
   Appbar,
@@ -45,12 +45,14 @@ function HomeScreen({isThemeDark}) {
 function SettingsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Local Settings in App!</Text>
+       <Text>Local Settings in App!</Text>
+       <Text>Local Settings in App!</Text>
       <Text style={{color: 'white'}} >Hi from local page.</Text>
-      
-            <Image style={styles.Image} source={require('./assets/travel-chum-logo.png')} />
-            
+      <Text>Local Settings in App!</Text>       
+      <Image style={styles.Image} source={require('./assets/travel-chum-logo.png')} />
+     
     </View>
+    
   );
 }
 
@@ -60,16 +62,22 @@ function SettingsScreen() {
 }
 
 export default function App() {
-  // const { LightTheme, DarkTheme } = adaptNavigationTheme({
-    //   reactNavigationLight: NavigationDefaultTheme,
-    //   reactNavigationDark: NavigationDarkTheme,
-    // });
+  const { LightTheme, DarkTheme } = adaptNavigationTheme({
+      reactNavigationLight: NavigationDefaultTheme,
+      reactNavigationDark: NavigationDarkTheme,
+    });
     
-    const CombinedDefaultTheme = merge(MD3LightTheme, DefaultTheme);
+    const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
     const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
-    
-    const [isThemeDark, setIsThemeDark] = React.useState(false);
-    let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+
+  const [isThemeDark, setIsThemeDark] = React.useState(false);
+  
+  let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+  
+  const toggleTheme = React.useCallback(() => {
+    return setIsThemeDark(!isThemeDark);
+  }, [isThemeDark]);
+  
     
     
     const preferences = React.useMemo(
@@ -80,9 +88,6 @@ export default function App() {
       [toggleTheme, isThemeDark]
       );
       
-      const toggleTheme = React.useCallback(() => {
-        return setIsThemeDark(!isThemeDark);
-      }, [isThemeDark]);
       
       
   return (

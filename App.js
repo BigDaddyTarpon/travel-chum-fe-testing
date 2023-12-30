@@ -1,7 +1,7 @@
 import React from 'react';
 import { PreferencesContext } from "./PreferencesContext";
 import { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput } from "react-native";
 import Constants from "expo-constants";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
@@ -10,7 +10,7 @@ import {
   DarkTheme as NavigationDarkTheme,
 useTheme
 } from "@react-navigation/native";
-import { PaperProvider, adaptNavigationTheme} from "react-native-paper";
+import { PaperProvider, adaptNavigationTheme, Dialog,} from "react-native-paper";
 import { MyHeaderComponent } from "./components/header";
 import {
   Appbar,
@@ -27,20 +27,43 @@ import Map from "./components/map";
 
 const Tab = createMaterialTopTabNavigator();
 
-function HomeScreen({isThemeDark}) {
+function HomeScreen() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text style={{ color: isThemeDark ? "white" : "black" }}>Local Home in App!</Text>
-      <Text style={{color: 'white'}} >Hi from Local Home page.</Text>
-    </View>
+    <>
+
+<Dialog visible={true}  >
+<Dialog.Title>hello from dialog title on local home (not explicit use of theme)</Dialog.Title>
+<Dialog.Content>
+  <Text >This is simple dialog</Text>
+</Dialog.Content>
+<Dialog.Actions>
+  <TextInput >
+  label="Enter Username"
+            placeholder="IT WORKS TO type here"   
+  </TextInput>
+</Dialog.Actions>
+<Dialog.Actions></Dialog.Actions>
+</Dialog>
+    
+</>
+
+    // <View
+    // theme={theme}
+    //   style={{
+    //     flex: 1,
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //   }}
+    // >
+    //   {console.log('theme on line 41', theme)}
+    //   <Text >Local Home in App!!</Text>
+    //   <Text style={{color: 'white'}} >Hi from Local Home page.</Text>
+    // </View>
+
+
   );
 }
+
 
 function SettingsScreen() {
   return (
@@ -114,8 +137,8 @@ export default function App() {
             <Tab.Screen name="Home " component={Home} />
             <Tab.Screen name="Test Page" component={HomeScreen} />
             <Tab.Screen name="Test Pg2" component={SettingsScreen} />
-            <Tab.Screen name="Plan a Trip" component={OptionsForm} />
             <Tab.Screen name="User" component={User} />
+            <Tab.Screen name="Plan a Trip" component={OptionsForm} />
             <Tab.Screen name="Map" component={Map} />
           </Tab.Navigator>
         </NavigationContainer>

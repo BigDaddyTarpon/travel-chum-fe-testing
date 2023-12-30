@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+
 } from "react-native";
 import {
   TextInput,
@@ -18,11 +19,12 @@ import {
   PaperProvider,
   Button,
   SegmentedButtons,
+  Dialog,
 } from "react-native-paper";
 import { RadioButton } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
 
-export default function UserForm() {
+export default function UserForm(theme) {
   const {
     control,
     handleSubmit,
@@ -32,7 +34,7 @@ export default function UserForm() {
     defaultValues: {
       username: "",
       password: "",
-      reminder: "",
+    
     },
   });
   function onSubmit(data) {
@@ -48,106 +50,49 @@ export default function UserForm() {
 
   return (
     <>
-    
-      <PaperProvider>
-        <Portal>
+      <PaperProvider theme={theme} >
+        <Portal >
+          
           {!visible ? (
             <Image
               style={styles.Image}
               source={require("../assets/travel-chum-logo.png")}
             />
           ) : null}
-          <Modal visible={visible} dismissable={false} >
-            <View>
-            <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            label="Register a new Username here"
-            placeholder="type here"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="username"
-      />
-      {errors.username && (
-        <Text style={{ color: "black" }}>
-          A username is required.{" "}
-          <Text style={{ color: "white" }}>A username is required.</Text>
-        </Text>
-      )}
+          
+          <Dialog visible={visible}>
+            <Dialog.Title>Enter your password and username below.</Dialog.Title>
+            {/* <Dialog.Title> 2. Enter your new password in the password box below.</Dialog.Title> */}
 
-      <Controller
-        control={control}
-        rules={{
-          pattern: {
-            value:
-              /^(?=.*\d)(?=.*[!@#$%^(){}[]&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-          },
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            label="8 char, incl; upper, lower, number and symbol"
-            placeholder="type your new password here"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="password"
-      />
-      {errors.password && (
-        <Text style={{ color: "black" }}>
-          A password is required.{" "}
-          <Text style={{ color: "white" }}>A password is required.</Text>
-        </Text>
-      )}
-      <Controller
-        control={control}
-        rules={{
-          required: false,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            label="You may set an optional password reminder here."
-            placeholder="type a hint here"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="reminder"
-      />
-      {errors.reminder && (
-        <Text style={{ color: "black" }}>
-          A reminder isn't required.{" "}
-          <Text style={{ color: "white" }}>A reminder isn't required.</Text>
-        </Text>
-      )}
-
-            </View>
-          </Modal>
+            <Dialog.Actions>
+              <Button
+              
+                icon="account-check"
+                mode="contained"
+                onPress={handleSubmit(onSubmit)}
+              >
+                Then click here to create a new account
+              </Button>
+            </Dialog.Actions>
+            <Dialog.Actions>
+              <Button
+                icon="delete"
+                mode="contained-tonal"
+                onPress={() => {
+                  setVisible(false);
+                }}
+              >
+                Or cancel and close new user dialogue
+              </Button>
+            </Dialog.Actions>
+          </Dialog>
         </Portal>
       </PaperProvider>
-      
 
-      <Button icon="account-plus" mode="contained-tonal" onPress={showModal}>
+      <Button icon="account-plus" mode="contained" onPress={showModal}>
         Click to create new user, or log in below
       </Button>
-      <Button
-        icon="account-tie"
-        mode="contained"
-        onPress={() => {
-          reset({ username: "Guest", password: "Password(1)", reminder: "" });
-        }}
-      >
-        Click to fill in details as Guest Account
-      </Button>
+
       <Controller
         control={control}
         rules={{
@@ -155,7 +100,7 @@ export default function UserForm() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            label="Registered Username"
+            label="Enter Username"
             placeholder="type here"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -178,7 +123,7 @@ export default function UserForm() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            label="Enter your registered password"
+            label="Enter your password"
             placeholder="type your password here"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -199,7 +144,7 @@ export default function UserForm() {
       <FormError errorMessage={formState.errors.password?.message} />
       </> */}
 
-      <Controller
+      {/* <Controller
         control={control}
         rules={{
           required: false,
@@ -220,9 +165,18 @@ export default function UserForm() {
           A reminder isn't required.{" "}
           <Text style={{ color: "white" }}>A reminder isn't required.</Text>
         </Text>
-      )}
+      )} */}
 
       <></>
+      <Button
+        icon="account-tie"
+        mode="contained-tonal"
+        onPress={() => {
+          reset({ username: "Guest", password: "Password(1)", reminder: "" });
+        }}
+      >
+        Click to fill in details as Guest Account
+      </Button>
       <Button
         icon="account-check"
         mode="contained"
@@ -233,10 +187,10 @@ export default function UserForm() {
 
       <Button
         icon="delete"
-        mode="contained"
+        mode="contained-tonal"
         onPress={() => {
           reset({ username: "", password: "", reminder: "" });
-          setVisible(false)
+          setVisible(false);
         }}
       >
         clear fields and close new user dialogue
@@ -372,8 +326,8 @@ export default function UserForm() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+  
+    justifyContent: "center",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -383,10 +337,23 @@ const styles = StyleSheet.create({
   },
   Image: {
     flex: 1,
-    justifyContent: 'center',
     
+alignSelf: "center",
     height: "100%",
     width: "70%",
     resizeMode: "contain",
   },
 });
+
+{
+  /* <Modal visible={visible} transparent={true} theme={theme}>
+            <View >
+            <Text>1. Enter your new username in the username box below.</Text>
+            <Text>2. Enter your new password in the password box below. </Text>
+            <Text>3. Optionally add a new password reminder in the password reminder box. </Text>
+            <Text>4. Click the 'create new account' Button. </Text>
+            <Text>4. This will close this dialogue, save your new account details and log you into your new account. </Text>
+      
+            </View>
+          </Modal> */
+}

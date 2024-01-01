@@ -20,12 +20,12 @@ export default function Home() {
           Swipe sideways or click a tab at the top to navigate.
         </Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
-          At the User screen you can login, register a new account, or login as
-          a guest.
+          At the User screen tabs at the bottom let you login, register a new
+          account, or login as a guest.
         </Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
-          You should enter details on 'plan a trip' to see the trip dispayed on
-          the map.
+          You can enter details on 'plan a trip' to see the trip dispayed on the
+          map.
         </Dialog.Title>
         {/* <Dialog.Content>
   <Text >This is simple dialog</Text>

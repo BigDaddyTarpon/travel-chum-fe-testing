@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { PreferencesContext } from "../PreferencesContext";
+import { PreferencesContext } from "../context/PreferencesContext";
 
 import {
   StyleSheet,
@@ -20,34 +20,31 @@ import {
   Button,
   SegmentedButtons,
   Dialog,
+  RadioButton,
 } from "react-native-paper";
 
-import { RadioButton } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
-import { UserContext } from "../UserContext";
+
+import { UserContext } from "../context/UserContext";
 import UserLoginForm from "./userlogin";
 import UserNotesForm from "./usernotes";
 import NewUserForm from "./newuser";
 
-
-
 export default function User(theme) {
-  
-  const [note, setNote] = useState({});
-  useContext(UserContext);
+ 
+  const{ user } = useContext(UserContext);
 
   return (
     <>
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-       <Text>User!</Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Welcome! {user.username} is currently logged in</Text> 
 
-      <Image style={styles.Image} source={require('../assets/travel-chum-logo.png')} />
-
-    </View>
-
+        <Image
+          style={styles.Image}
+          source={require("../assets/travel-chum-logo.png")}
+        />
+      </View>
     </>
-
-    
   );
 }
 

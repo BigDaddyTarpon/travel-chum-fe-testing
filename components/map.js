@@ -20,7 +20,7 @@ export default function Map() {
   }
   return (
     <View style={styles.container}>
-      <Text>Travel Chum</Text>
+    
       {polylineCoordinates.length !== 0 && (
         <MapView
         

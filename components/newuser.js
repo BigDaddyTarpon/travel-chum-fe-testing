@@ -22,14 +22,14 @@ import {
 } from "react-native-paper";
 
 import { useForm, Controller } from "react-hook-form";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../context/UserContext";
 
 let knownUsersArray = [{ password: "Password(1)", username: "Guest" }];
 
-export default function NewUserForm(theme, {user, setUser}) {
+export default function NewUserForm(theme) {
   // const [user, setUser] = useState({});
   // guest is {"password": "Password(1)", "username": "Guest"}
-  // const user= useContext(UserContext)
+  const { user, setUser }= useContext(UserContext)
 
   const {
     control,

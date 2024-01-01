@@ -19,15 +19,15 @@ import {
   Button,
   SegmentedButtons,
   Dialog,
+  RadioButton,
 } from "react-native-paper";
-import { RadioButton } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../context/UserContext";
 
 let knownUsersArray = [{ password: "Password(1)", username: "Guest" }];
 
-export default function UserLoginForm(theme, user, setUser) {
-  // const [user, setUser] = useState({});
+export default function UserLoginForm(theme) {
+  const {user, setUser} = useContext(UserContext);
 
   const {
     control,

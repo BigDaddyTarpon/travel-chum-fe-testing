@@ -27,9 +27,12 @@ import { UserContext } from "../context/UserContext";
 let knownUsersArray = [{ password: "Password(1)", username: "Guest" }];
 let newUserFlag = false;
 
-export default function UserNotesForm(theme, user, setUser, note, setNote) {
+export default function UserNotesForm(theme) 
+   {
   // move this state to user, pass setNote on props?
   // const user= useContext(UserContext)
+ 
+  const{ user } = useContext(UserContext);
 
   const {
     control,
@@ -45,12 +48,12 @@ export default function UserNotesForm(theme, user, setUser, note, setNote) {
   });
   function onSubmit(data) {
     // console.log('data is', data, 'JSON.stringify(data) gives;', JSON.stringify(data))
-    console.log("data is", data);
+    console.log("data for submit note is", data);
     // console.log('flag', newUserFlag)
     setNote(data);
     //
     // console.log("User is", User);
-    console.log("user is", user);
+    console.log("user notes line 53 is", user);
     console.log("data.username is", data.username);
     console.log("knownUsersArray is ->", knownUsersArray);
   }

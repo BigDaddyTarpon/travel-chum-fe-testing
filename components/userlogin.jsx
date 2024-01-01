@@ -23,11 +23,12 @@ import {
 } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
 import { UserContext } from "../context/UserContext";
+import { KnownUserArrayContext } from '../context/KnownUserArrayContext';
 
-let knownUsersArray = [{ password: "Password(1)", username: "Guest" }];
 
 export default function UserLoginForm(theme) {
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+const { knownUserArray } = useContext(KnownUserArrayContext)
 
   const {
     control,
@@ -42,15 +43,16 @@ export default function UserLoginForm(theme) {
     },
   });
   function onSubmit(data) {
+
+
     // console.log('data is', data, 'JSON.stringify(data) gives;', JSON.stringify(data))
     console.log("data is", data);
-    // console.log('flag', newUserFlag)
+    
     setUser(data);
-    //
-    // console.log("User is", User);
+   
     console.log("user is", user);
     console.log("data.username is", data.username);
-    console.log("knownUsersArray is ->", knownUsersArray);
+    console.log("knownUserArray is ->", knownUserArray);
   }
 
   // TO BE SENT TO/FROM BACKEND
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             label= "press to show or reset your password hint"
-            placeholder={`${knownUsersArray[0].reminder}`}
+            placeholder={`${knownUserArray[0].reminder}`}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}

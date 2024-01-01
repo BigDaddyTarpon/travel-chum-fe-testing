@@ -23,13 +23,15 @@ import {
 
 import { useForm, Controller } from "react-hook-form";
 import { UserContext } from "../context/UserContext";
-
-let knownUsersArray = [{ password: "Password(1)", username: "Guest" }];
+import { KnownUserArrayContext } from "../context/KnownUserArrayContext";
 
 export default function NewUserForm(theme) {
   // const [user, setUser] = useState({});
   // guest is {"password": "Password(1)", "username": "Guest"}
-  const { user, setUser }= useContext(UserContext)
+  const { user, setUser } = useContext(UserContext);
+  const { knownUserArray, setKnownUserArray } = useContext(
+    KnownUserArrayContext
+  );
 
   const {
     control,
@@ -43,16 +45,20 @@ export default function NewUserForm(theme) {
     },
   });
   function onSubmitNewUser(data) {
-    knownUsersArray.some((testuser) => testuser.username === data.username)
-      ? (console.log("clash"), (message = "username taken, try again"))
-      : (console.log("clear"),
-        knownUsersArray.push(data),
+    // {knownUserArray.some((testuser) => testuser.username === data.username)
+    //   ? (console.log("clash"), (message = "username taken, try again"))
+    //   : (console.log("clear"),
+    //     setKnownUserArray(...knownUserArray, data),
         setUser(data),
-        (message = "done!"));
+    //     (message = "done!"));}
+   
+setKnownUserArray(knownUserArray.push(data))
 
     console.log("data is", data);
     console.log("data.username is", data.username);
-    console.log("knownUsersArray is ->", knownUsersArray);
+    console.log("knownUserArray is ->", knownUserArray);
+
+
     //console.log("user is", user);
     //console.log("user.username is", user.username);
   }
@@ -66,9 +72,9 @@ export default function NewUserForm(theme) {
   // users.some((user) => user.name === "Johnny") ? console.log('yes'):console.log('no')
 
   // TO BE SENT TO/FROM BACKEND
-  //if(knownUsersArray.filter((usercheck) => usercheck.username === data.username)) then {console.log("no way")}else{{console.log("that OK")}}
-  //else{knownUsersArray.push(user)}}
-  // {knownUsersArray.push(data)}
+  //if(knownUserArray.filter((usercheck) => usercheck.username === data.username)) then {console.log("no way")}else{{console.log("that OK")}}
+  //else{knownUserArray.push(user)}}
+  // {knownUserArray.push(data)}
 
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);

@@ -31,7 +31,10 @@ import merge from "deepmerge";
 
 import { PreferencesContext } from "./context/PreferencesContext";
 import { UserContext } from "./context/UserContext";
-import { MyHeaderComponent } from "./components/header";
+import { KnownUserArrayContext } from './context/KnownUserArrayContext';
+
+import { MyHeaderComponent } from "./components/header(spare)";
+// import {BottomTabScreen} from "./components/BottomTabScreen"
 import OptionsForm from "./components/options-form";
 import Home from "./components/home";
 import User from "./components/user";
@@ -45,8 +48,9 @@ const BottomTab = createMaterialBottomTabNavigator();
 
 export default function App() {
   // const { username } = useContext(UserContext).user;
-  const [user, setUser] = useState({"password": "", "username": "no user"});
-  // console.log("username in app line49 is; ", username);
+  const[knownUserArray, setKnownUserArray]=useState([{ password: "Password(1)", username: "Guest" }, {password: "Asd", username: "Qwe"}])
+  const [user, setUser] = useState({ password: "", username: "no user" });
+ 
   const { LightTheme, DarkTheme } = adaptNavigationTheme({
     reactNavigationLight: NavigationDefaultTheme,
     reactNavigationDark: NavigationDarkTheme,
@@ -71,21 +75,21 @@ export default function App() {
     [toggleTheme, isThemeDark]
   );
 
-  const BottomTabScreen = () => (
-    <UserContext.Provider value={{ user, setUser }}>
-
-    <BottomTab.Navigator>
-      <BottomTab.Screen name="User Details" component={User} />
-      <BottomTab.Screen name="Login" component={UserLoginForm} />
-      <BottomTab.Screen name="New User" component={NewUserForm} />
-    <BottomTab.Screen name="User Notes" component={UserNotesForm} />
-    </BottomTab.Navigator>
-    </UserContext.Provider>
-  );
-
+  const BottomTabScreen = () => {
+    // const [note, setNote] = useState({});
+    return (
+      <BottomTab.Navigator>
+        <BottomTab.Screen name="User Details" component={User} />
+        <BottomTab.Screen name="Login" component={UserLoginForm} />
+        <BottomTab.Screen name="New User" component={NewUserForm} />
+        <BottomTab.Screen name="User Notes" component={UserNotesForm} />
+      </BottomTab.Navigator>
+    );
+  };
   return (
     <PreferencesContext.Provider value={preferences}>
       <UserContext.Provider value={{ user, setUser }}>
+      <KnownUserArrayContext.Provider value={{knownUserArray, setKnownUserArray}}>
         <PaperProvider theme={theme}>
           <>
             <Appbar style={{ marginTop: Constants.statusBarHeight }}>
@@ -119,6 +123,7 @@ export default function App() {
             </Tab.Navigator>
           </NavigationContainer>
         </PaperProvider>
+        </KnownUserArrayContext.Provider>
       </UserContext.Provider>
     </PreferencesContext.Provider>
   );
@@ -180,3 +185,10 @@ const styles = StyleSheet.create({
 //     </View>
 //   );
 // }
+
+
+// It's possible to insert state into the navigator itself like below - but struggle to pass on props. 
+// const BottomTabScreen = () => {
+//   const [note, setNote] = useState({});
+//   return (
+//     <BottomTab.Navigator> ...rest of navigator... )

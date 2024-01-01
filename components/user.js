@@ -29,10 +29,10 @@ import UserLoginForm from "./userlogin";
 import UserNotesForm from "./usernotes";
 import NewUserForm from "./newuser";
 
-let knownUsersArray = [{ password: "Password(1)", username: "Guest" }];
+
 
 export default function User(theme) {
-  const [user, setUser] = useState({});
+  
   const [note, setNote] = useState({});
   useContext(UserContext);
 

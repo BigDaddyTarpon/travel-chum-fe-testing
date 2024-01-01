@@ -26,7 +26,6 @@ import { UserContext } from "../UserContext";
 
 let knownUsersArray = [{ password: "Password(1)", username: "Guest" }];
 
-
 export default function UserLoginForm(theme, user, setUser) {
   // const [user, setUser] = useState({});
 
@@ -57,8 +56,8 @@ export default function UserLoginForm(theme, user, setUser) {
   // TO BE SENT TO/FROM BACKEND
 
   const [visibletips, setVisibletips] = useState(false);
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+  const showModal = () => setVisibletips(true);
+  const hideModal = () => setVisibletips(false);
 
   return (
     <>

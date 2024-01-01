@@ -37,23 +37,17 @@ export default function User(theme) {
   useContext(UserContext);
 
   return (
-    // <>
-    // <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    //    <Text>User!</Text>
-
-    //   <Image style={styles.Image} source={require('./assets/travel-chum-logo.png')} />
-
-    // </View>
-
-    // </>
-
     <>
-      {/* <PreferencesContext.Provider value={preferences}> */}
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+       <Text>User!</Text>
 
-      <></>
+      <Image style={styles.Image} source={require('../assets/travel-chum-logo.png')} />
 
-      {/* </PreferencesContext.Provider> */}
+    </View>
+
     </>
+
+    
   );
 }
 

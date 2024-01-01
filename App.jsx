@@ -106,6 +106,14 @@ export default function App() {
     }),
     [toggleTheme, isThemeDark]
   );
+  const BottomTabScreen = () => (
+    <BottomTab.Navigator>
+      <BottomTab.Screen name="User" component={User} />
+      <BottomTab.Screen name="Login" component={UserLoginForm} />
+      <BottomTab.Screen name="New User" component={NewUserForm} />
+      <BottomTab.Screen name="User Notes" component={UserNotesForm} />
+    </BottomTab.Navigator>
+  );
 
   return (
     <PreferencesContext.Provider value={preferences}>
@@ -135,21 +143,8 @@ export default function App() {
               <Tab.Screen name="Home " component={Home} />
               {/* <Tab.Screen name="Test Page" component={HomeScreen} />
             <Tab.Screen name="Test Pg2" component={SettingsScreen} /> */}
-              <Tab.Screen name="User" component={User} />
-              <Tab.Screen
-                name="BottomTab"
-                component={() => (
-                  <BottomTab.Navigator>
-                    <BottomTab.Screen name="User" component={User} />
-                    <BottomTab.Screen name="Login" component={UserLoginForm} />
-                    <BottomTab.Screen name="New User" component={NewUserForm} />
-                    <BottomTab.Screen
-                      name="User Notes"
-                      component={UserNotesForm}
-                    />
-                  </BottomTab.Navigator>
-                )}
-              />
+             
+              <Tab.Screen name="User" component={BottomTabScreen} />
               {/* <Tab.Screen name="New User" component={NewUserForm} /> */}
               <Tab.Screen name="Plan a Trip" component={OptionsForm} />
               <Tab.Screen name="Map" component={Map} />

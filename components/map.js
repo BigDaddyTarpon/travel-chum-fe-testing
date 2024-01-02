@@ -2,8 +2,9 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
-import getPolylineCoordinates, { getPoisFromMarker } from "./utils/utils";
-export default function App() {
+import getPolylineCoordinates, { getPoisFromMarker } from "../utils/utils";
+
+export default function Map() {
   const [polylineCoordinates, setPolylineCoordinates] = useState([]);
   const [poiMarkers, setPoiMarkers] = useState([]);
   useEffect(() => {
@@ -19,9 +20,10 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
-      <Text>Travel Chum</Text>
+    
       {polylineCoordinates.length !== 0 && (
         <MapView
+        
           style={styles.map}
           initialRegion={{
             latitude: polylineCoordinates[0].latitude,
@@ -98,7 +100,7 @@ export default function App() {
           ))}
         </MapView>
       )}
-      <StatusBar style="auto" />
+    
     </View>
   );
 }
@@ -106,12 +108,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
   map: {
-    width: "70%",
-    height: "70%",
+    width: "85%",
+    height: "85%",
   },
 });
